@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Caratula.unity
+    guid: e2228073ff5beea4e89cddf913a6a603
+  - enabled: 1
+    path: Assets/Scenes/Escena principal.unity
+    guid: 89d5383d87737184e9b0a6b2aa8cf0f9
   m_configObjects: {}

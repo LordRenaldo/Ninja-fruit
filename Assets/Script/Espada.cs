@@ -2,27 +2,22 @@ using UnityEngine;
 
 public class Espada : MonoBehaviour
 {
-    private Rigidbody2D filo;
-    private Collider2D espada;
+    private Camera mainCamera;
 
-    // Start is called before the first frame update
     private void Awake ()
     {
-        filo = GetComponent<Rigidbody2D> ();
-        espada = GetComponent<Collider2D> ();
+        mainCamera = Camera.main;
     }
 
-    // Update is called once per frame
     void Update ()
     {
-        AsociarEspadaAlMouse ();
+        AsociarEspadaMouse ();
     }
 
-    private void AsociarEspadaAlMouse ()
+    private void AsociarEspadaMouse ()
     {
-        var mousePosicion = Input.mousePosition;
-        mousePosicion.z = 105;
-        filo.position = Camera.main.ScreenToWorldPoint (mousePosicion);
-        espada.transform.position = filo.position;
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = 80;
+        transform.position = mainCamera.ScreenToWorldPoint (mousePosition);
     }
 }
