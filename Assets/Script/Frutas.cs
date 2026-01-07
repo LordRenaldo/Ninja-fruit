@@ -7,7 +7,7 @@ public class Frutas : MonoBehaviour
 
     private void Awake ()
     {
-        gameManager = FindObjectOfType<GameManager> ();
+        gameManager = Object.FindFirstObjectByType<GameManager> ();
     }
 
     public void CrearFrutaCortada ()

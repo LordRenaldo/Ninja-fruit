@@ -6,7 +6,7 @@ public class Bomba : MonoBehaviour
 
     private void Start ()
     {
-        gameManager = FindObjectOfType<GameManager> ();
+        gameManager = Object.FindFirstObjectByType<GameManager> ();
     }
 
     private void OnTriggerEnter2D ( Collider2D collision )

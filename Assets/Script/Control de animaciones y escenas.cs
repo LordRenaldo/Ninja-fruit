@@ -13,7 +13,8 @@ public class Controldeanimacionesyescenas : MonoBehaviour
 
     private void Start ()
     {
-        audioSources = FindObjectsOfType<AudioSource> ();
+        // Reemplazo correcto de FindObjectsOfType (obsoleto)
+        audioSources = Object.FindObjectsByType<AudioSource> (FindObjectsSortMode.None);
     }
 
     public void CambioDeEscena ()
@@ -23,20 +24,33 @@ public class Controldeanimacionesyescenas : MonoBehaviour
 
     private IEnumerator CambioDeEscenaConEspera ()
     {
-        DetenerSonido (quienEmite1);
-        quienEmite1.PlayOneShot (inicio, 1);
-        yield return new WaitForSeconds (3);
+        // Detiene todos los audios excepto quienEmite2 (por tu lógica original)
+        DetenerSonido (quienEmite2);
+
+        // Opcional: si querés asegurar que el emisor 1 arranque limpio
+        if (quienEmite1 != null)
+            quienEmite1.Stop ();
+
+        if (quienEmite1 != null && inicio != null)
+            quienEmite1.PlayOneShot (inicio, 1f);
+
+        yield return new WaitForSeconds (3f);
         SceneManager.LoadScene (1);
     }
 
-    private void DetenerSonido ( AudioSource emisor )
+    private void DetenerSonido ( AudioSource excepto )
     {
+        // Por si cambian audios en runtime, refrescamos si está vacío
+        if (audioSources == null || audioSources.Length == 0)
+            audioSources = Object.FindObjectsByType<AudioSource> (FindObjectsSortMode.None);
+
         foreach (AudioSource fuenteDeAudio in audioSources)
         {
-            if (fuenteDeAudio != quienEmite2)
-            {
-                quienEmite1.Stop ();
-            }
+            if (fuenteDeAudio == null) continue;
+            if (fuenteDeAudio == excepto) continue;
+
+            // BUG FIX: parar la fuente que estoy recorriendo
+            fuenteDeAudio.Stop ();
         }
     }
 }

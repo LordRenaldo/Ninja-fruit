@@ -27,8 +27,14 @@ public class GameManager : MonoBehaviour
     public void Awake ()
     {
         panelGameOver.SetActive (false);
-        mejorPuntaje = PlayerPrefs.GetInt ("Mejor puntaje");
+
+        puntajeNumero = 0;
+        puntajeTexto.text = "Puntaje: 0";
+        puntajeFinal.text = "Puntaje: 0";
+
+        mejorPuntaje = PlayerPrefs.GetInt ("Mejor puntaje", 0);
         ActualizarMejorPuntajeTexto ();
+
         interactivoObjects = GameObject.FindGameObjectsWithTag ("Interactivo");
     }
     public void Start ()
